@@ -1,4 +1,5 @@
 const express = require("express");
+const dotenv = require("dotenv").config().parsed;
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -9,8 +10,7 @@ const { requireAuth } = require("./middlewares/authMiddleware");
 
 const app = express();
 
-const dbUrl =
-  "mongodb+srv://netninja:netninja123@cluster0.m56uy.mongodb.net/todo-app?retryWrites=true&w=majority";
+const dbUrl = dotenv.DB_URL;
 
 //middlewares
 app.use(express.json());
@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(
   cors({
     exposedHeaders: ["X-CSRF-TOKEN"],
-    origin: "http://localhost:3000",
+    origin: dotenv.ALLOWED_ORIGIN,
     credentials: true,
   })
 );

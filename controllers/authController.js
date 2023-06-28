@@ -2,6 +2,7 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const errorHandler = require("../utils/errorHandler");
+const dotenv = require("dotenv").config().parsed;
 
 const createToken = (data, csrfToken) => {
   const accessToken = jwt.sign(
@@ -11,7 +12,7 @@ const createToken = (data, csrfToken) => {
       name: data.name,
       csrfToken,
     }),
-    "secret_key"
+    dotenv.SECRET_KEY
   );
   return accessToken;
 };
